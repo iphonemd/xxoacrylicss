@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xxoacrilycss - Nail Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+            color: #000000;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #000000;
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.95;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Service Section */
+        .service-section {
+            background-color: #ffffff;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .service-header {
+            background-color: #000000;
+            color: white;
+            padding: 1.3rem;
+            text-align: center;
+        }
+
+        .service-header h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Slideshow */
+        .slideshow-container {
+            position: relative;
+            background-color: #ffffff;
+            min-height: 400px;
+        }
+
+        .slide {
+            display: none;
+            position: relative;
+        }
+
+        .slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 1200px;
+            background-color: #e0e0e0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 1.2rem;
+            border: 2px dashed #999;
+        }
+
+        .slide-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Navigation arrows */
+        .prev, .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            margin-top: -22px;
+            padding: 16px;
+            color: white;
+            background-color: rgba(0,0,0,0.5);
+            font-weight: bold;
+            font-size: 18px;
+            transition: 0.3s ease;
+            border-radius: 0 3px 3px 0;
+            user-select: none;
+        }
+
+        .next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        .prev:hover, .next:hover {
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .dots-container {
+            text-align: center;
+            padding: 1.1rem 0;
+            background-color: #ffffff;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 8px;
+            background-color: #ddd;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .dot.active {
+            background-color: #000000;
+            transform: scale(1.3);
+        }
+
+        /* Info Sections */
+        .info-section {
+            background-color: white;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #000000;
+        }
+
+        .info-section h2 {
+            color: #000000;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-section p, .info-section ul {
+            color: #333;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .info-section li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .contact-box {
+            background-color: #000000;
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .contact-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .contact-box p {
+            font-size: 1.2rem;
+            margin: 0.5rem 0;
+        }
+
+        .contact-box a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-bottom: 2px solid white;
+            transition: opacity 0.3s;
+        }
+
+        .contact-box a:hover {
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            transition: transform 0.3s ease;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon i {
+            color: white;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 3rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .service-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .slide-image {
+                height: 500px;
+            }
+
+            .info-section {
+                padding: 1.5rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+
+            .social-links {
+                gap: 1.5rem;
+            }
+
+            .social-icon {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>xxoacrilycss</h1>
+        <p>Professional Nail Services</p>
+    </header>
+
+    <div class="container">
+        <div class="contact-box">
+            <h3>Book Your Appointment</h3>
+            <p><strong>Phone (Text Only):</strong> <a href="sms:5397770059">539-777-0059</a></p>
+            <div class="social-links">
+                <a href="https://instagram.com/xxo.acrylicss" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://snapchat.com/add/ivvett.g" target="_blank" class="social-icon">
+                    <i class="fab fa-snapchat"></i>
+                </a>
+                <a href="https://cash.app/$ivvettg" target="_blank" class="social-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h2>Payment Information</h2>
+            <p><strong>$20 Non-Refundable Deposit Required Upon Booking</strong></p>
+            <p>You are responsible for sending your deposit. This deposit will go towards your total.</p>
+            
+            <p style="margin-top: 1.5rem;"><strong>Deposit Payment Methods:</strong></p>
+            <ul>
+                <li>CashApp: <strong>$ivvettg</strong></li>
+                <li>Apple Pay</li>
+                <li>Cash</li>
+            </ul>
+
+            <p style="margin-top: 1.5rem;"><strong>Important Deposit Instructions:</strong></p>
+            <p>When sending your deposit, please just put your name or an emoji - NOT "nails" or "appt"</p>
+            <p>When asked, select <strong>paying a friend/trusted person</strong></p>
+            <p>If these instructions are not followed, we will issue a refund and your appointment will be cancelled</p>
+
+            <p style="margin-top: 1.5rem;"><strong>Remaining Balance:</strong></p>
+            <p>Must be paid in <strong>CASH ONLY</strong> - no other payment methods will be accepted.</p>
+            <p>Please make sure to have the exact amount for your appointment time</p>
+        </div>
+
+        <div class="info-section">
+            <h2>Rescheduling Policy</h2>
+            <p>Rescheduling must be done <strong>48 hours in advance</strong> in order for your original deposit to be applied to your rescheduled appointment.</p>
+            <p>Please respect the time and policy in place by notifying in advance.</p>
+            <p style="margin-top: 1rem;"><strong>It's OK to reschedule. It's NOT OK to not communicate.</strong></p>
+        </div>
+
+        <div class="info-section">
+            <h2>Guest Policy</h2>
+            <p>For safety purposes, additional guests and children are <strong>not permitted</strong> at this time.</p>
+        </div>
+
+        <div class="info-section">
+            <h2>Confirmation</h2>
+            <p><strong>New Clients:</strong> Please DM/text me to confirm your appointment the day before.</p>
+            <p style="margin-top: 1rem;">In this message, please include a <strong>screenshot of your deposit</strong> to receive the address and further info.</p>
+        </div>
+
+        <div class="info-section">
+            <h2>Time Management</h2>
+            <p>A <strong>10-minute grace period</strong> is given.</p>
+            <ul>
+                <li>Anything after that: <strong>$10 upcharge</strong></li>
+                <li>Anything after 15 minutes: <strong>Cancelled appointment</strong></li>
+            </ul>
+        </div>
+
+        <div class="info-section">
+            <h2>Special Offer</h2>
+            <p><strong>Tag me in your stories for $5 off your next set!</strong></p>
+            <p>And please don't hesitate to ask for that silent appointment</p>
+        </div>
+
+        <div class="info-section">
+            <h2>Retention Policy</h2>
+            <ul>
+                <li>Three or more missing nails is considered a <strong>full set</strong></li>
+                <li>For sanitary purposes, fills can only go up to <strong>4 weeks maximum</strong></li>
+                <li>Soak offs are provided on <strong>my work only</strong></li>
+            </ul>
+        </div>
+
+        <!-- Freestyle Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Freestyle</h2>
+            </div>
+            <div class="slideshow-container" id="freestyle-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/freestyle/Freestyle1.webp" alt="Freestyle 1">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/freestyle/Freestyle2.webp" alt="Freestyle 1">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/freestyle/Freestyle3.webp" alt="Freestyle 1">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'freestyle-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'freestyle-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="freestyle-dots"></div>
+        </div>
+
+        <!-- Short Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Short Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="short-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/short/short1.webp" alt="Short full set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/short/short2.webp" alt="Short full set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/short/short3.webp" alt="Short full set">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'short-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'short-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="short-dots"></div>
+        </div>
+
+        <!-- Medium Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Medium Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="medium-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/medium/medium1.webp" alt="Medium Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/medium/medium2.webp" alt="Medium Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/medium/medium3.webp" alt="Medium Full Set">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'medium-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'medium-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="medium-dots"></div>
+        </div>
+
+        <!-- Long Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Long Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="long-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/long/long1.webp" alt="Long Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/long/long2.webp" alt="Long Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/long/long3.webp" alt="Long Full Set">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'long-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'long-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="long-dots"></div>
+        </div>
+
+        <!-- Extra Long Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Extra Long Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="extralong-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        Image Placeholder 1
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 2
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 3
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'extralong-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'extralong-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="extralong-dots"></div>
+        </div>
+
+        <!-- Extendo Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Extendo Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="extendo-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        Image Placeholder 1
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 2
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 3
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'extendo-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'extendo-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="extendo-dots"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 xxoacrilycss - All Rights Reserved</p>
+        <p>Professional Nail Services</p>
+    </footer>
+
+    <script>
+        // Initialize slideshows for each service
+        const slideshows = {
+            'freestyle-slideshow': { currentSlide: 0, timer: null },
+            'short-slideshow': { currentSlide: 0, timer: null },
+            'medium-slideshow': { currentSlide: 0, timer: null },
+            'long-slideshow': { currentSlide: 0, timer: null },
+            'extralong-slideshow': { currentSlide: 0, timer: null },
+            'extendo-slideshow': { currentSlide: 0, timer: null }
+        };
+
+        // Initialize dots for each slideshow
+        function initializeDots() {
+            Object.keys(slideshows).forEach(slideshowId => {
+                const container = document.getElementById(slideshowId);
+                const slides = container.getElementsByClassName('slide');
+                const dotsId = slideshowId.replace('-slideshow', '-dots');
+                const dotsContainer = document.getElementById(dotsId);
+                
+                // Create dots
+                for (let i = 0; i < slides.length; i++) {
+                    const dot = document.createElement('span');
+                    dot.className = 'dot';
+                    if (i === 0) dot.classList.add('active');
+                    dot.onclick = function() { goToSlide(i, slideshowId); };
+                    dotsContainer.appendChild(dot);
+                }
+            });
+        }
+
+        // Show specific slide
+        function showSlide(n, slideshowId) {
+            const container = document.getElementById(slideshowId);
+            const slides = container.getElementsByClassName('slide');
+            const dotsId = slideshowId.replace('-slideshow', '-dots');
+            const dots = document.getElementById(dotsId).getElementsByClassName('dot');
+            
+            if (n >= slides.length) { n = 0; }
+            if (n < 0) { n = slides.length - 1; }
+            
+            slideshows[slideshowId].currentSlide = n;
+            
+            // Hide all slides
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+                dots[i].classList.remove('active');
+            }
+            
+            // Show current slide
+            slides[n].classList.add('active');
+            dots[n].classList.add('active');
+        }
+
+        // Change slide (next/prev)
+        function changeSlide(direction, slideshowId) {
+            const newIndex = slideshows[slideshowId].currentSlide + direction;
+            showSlide(newIndex, slideshowId);
+            resetTimer(slideshowId);
+        }
+
+        // Go to specific slide
+        function goToSlide(n, slideshowId) {
+            showSlide(n, slideshowId);
+            resetTimer(slideshowId);
+        }
+
+        // Auto advance slideshow
+        function autoSlide(slideshowId) {
+            const container = document.getElementById(slideshowId);
+            const slides = container.getElementsByClassName('slide');
+            const nextIndex = (slideshows[slideshowId].currentSlide + 1) % slides.length;
+            showSlide(nextIndex, slideshowId);
+        }
+
+        // Reset and start timer
+        function resetTimer(slideshowId) {
+            clearInterval(slideshows[slideshowId].timer);
+            startTimer(slideshowId);
+        }
+
+        // Start auto-advance timer
+        function startTimer(slideshowId) {
+            const container = document.getElementById(slideshowId);
+            const slides = container.getElementsByClassName('slide');
+            const slideCount = slides.length;
+            
+            // Calculate interval: 3 seconds per slide
+            const interval = 3000;
+            
+            slideshows[slideshowId].timer = setInterval(() => {
+                autoSlide(slideshowId);
+            }, interval);
+        }
+
+        // Initialize all slideshows
+        function initializeSlideshows() {
+            initializeDots();
+            Object.keys(slideshows).forEach(slideshowId => {
+                startTimer(slideshowId);
+            });
+        }
+
+        // Start when page loads
+        window.onload = initializeSlideshows;
+    </script>
+</body>
+</html>
