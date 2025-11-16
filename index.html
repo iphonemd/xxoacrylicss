@@ -6,6 +6,21 @@
     <title>xxoacrilycss - Nail Services</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.cdnfonts.com/css/lucy-said-ok');
+        @font-face {
+            font-family: "Sahir Yesta";
+            src: url("fonts/Sahir\ Yesta.otf");
+            src: url("fonts/Sahir\ Yesta.ttf");
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: "ShadowsIntoLightTwo-Regular";
+            src: url("fonts/ShadowsIntoLightTwo-Regular.ttf");
+            font-weight: normal;
+            font-style: normal;
+        }
+        
         * {
             margin: 0;
             padding: 0;
@@ -28,8 +43,9 @@
         }
 
         header h1 {
-            font-size: 2.5rem;
-            font-weight: 300;
+            font-family: 'Sahir Yesta';
+            font-size: 3.5rem;
+            font-weight: 400;
             letter-spacing: 2px;
             margin-bottom: 0.5rem;
         }
@@ -45,11 +61,305 @@
             padding: 2rem 1rem;
         }
 
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            animation: fadeIn 0.3s;
+        }
+
+        .modal.show {
+            display: block;
+        }
+
+        .modal-content {
+            background-color: #ffffff;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            background-color: #000000;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px 12px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h2 {
+            font-family: 'Sahir Yesta';
+            font-size: 2rem;
+            font-weight: 400;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+
+        .close {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+            line-height: 1;
+        }
+
+        .close:hover {
+            transform: scale(1.2);
+        }
+
+        .modal-body {
+            padding: 2rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+
+        /* Booking Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #000000;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #000000;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .deposit-reminder {
+            background-color: #fffbea;
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+        }
+
+        .deposit-reminder h4 {
+            color: #000000;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .deposit-reminder p {
+            color: #333;
+            font-size: 0.95rem;
+            margin: 0.3rem 0;
+        }
+
+        .submit-btn {
+            background-color: #000000;
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .submit-btn:hover {
+            background-color: #333333;
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        .submit-btn:disabled {
+            background-color: #666666;
+            cursor: not-allowed;
+        }
+
+        .book-btn {
+            background-color: #000000;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 1px;
+            margin: 1.5rem auto;
+            display: block;
+        }
+
+        .book-btn:hover {
+            background-color: #333333;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            color: #155724;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .error-message {
+            display: none;
+            background-color: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 6px;
+            color: #721c24;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        /* File Upload Styling */
+        .file-upload {
+            margin-top: 1rem;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            background-color: #000000;
+            color: white !important;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            letter-spacing: 1px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .file-label:hover {
+            background-color: #333333;
+        }
+
+        .file-label:active {
+            transform: scale(0.98);
+        }
+
+        .file-name {
+            font-size: 0.95rem;
+            color: #666;
+            display: block;
+            margin: 0.75rem 0;
+            font-style: italic;
+        }
+
+        .file-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .file-action {
+            background-color: #000000;
+            color: white !important;
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            letter-spacing: 0.5px;
+        }
+
+        .file-action:hover {
+            background-color: #333333;
+        }
+
+        .file-action:active {
+            transform: scale(0.98);
+        }
+
+        .file-action.remove {
+            background-color: #dc3545;
+        }
+
+        .file-action.remove:hover {
+            background-color: #c82333;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
         /* Service Section */
         .service-section {
             background-color: #ffffff;
             margin: 2rem 0;
-            border-radius: 12px;
+            border-radius: 0%;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             overflow: hidden;
         }
@@ -62,8 +372,9 @@
         }
 
         .service-header h2 {
-            font-size: 2rem;
-            font-weight: 300;
+            font-family: 'ShadowsIntoLightTwo-Regular';
+            font-size: 2.5rem;
+            font-weight: 400;
             letter-spacing: 1px;
         }
 
@@ -166,11 +477,11 @@
         }
 
         .info-section h2 {
+            font-family: 'Sahir Yesta';
             color: #000000;
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             margin-bottom: 1.5rem;
             font-weight: 400;
-            text-transform: uppercase;
             letter-spacing: 1px;
         }
 
@@ -208,7 +519,8 @@
         }
 
         .contact-box h3 {
-            font-size: 1.5rem;
+            font-family: 'Sahir Yesta';
+            font-size: 2rem;
             margin-bottom: 1rem;
             font-weight: 400;
         }
@@ -273,11 +585,11 @@
 
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             .service-header h2 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
 
             .slide-image {
@@ -286,6 +598,10 @@
 
             .info-section {
                 padding: 1.5rem;
+            }
+
+            .info-section h2 {
+                font-size: 1.8rem;
             }
 
             .container {
@@ -300,6 +616,33 @@
                 width: 40px;
                 height: 40px;
             }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                margin: 5% auto;
+            }
+
+            .modal-body {
+                padding: 1.5rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
+            }
+
+            .file-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .file-action {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -311,7 +654,7 @@
 
     <div class="container">
         <div class="contact-box">
-            <h3>Book Your Appointment</h3>
+            <h3>Questions? Contact Me</h3>
             <p><strong>Phone (Text Only):</strong> <a href="sms:5397770059">539-777-0059</a></p>
             <div class="social-links">
                 <a href="https://instagram.com/xxo.acrylicss" target="_blank" class="social-icon">
@@ -324,6 +667,174 @@
                     <i class="fas fa-dollar-sign"></i>
                 </a>
             </div>
+        </div>
+
+        <!-- Freestyle Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Freestyle</h2>
+            </div>
+            <div class="slideshow-container" id="freestyle-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/freestyle/Freestyle1.webp" alt="Freestyle 1">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/freestyle/Freestyle2.webp" alt="Freestyle 2">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/freestyle/Freestyle3.webp" alt="Freestyle 3">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'freestyle-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'freestyle-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="freestyle-dots"></div>
+            <button class="book-btn" onclick="openBookingModal('Freestyle')">Book This Service</button>
+        </div>
+
+        <!-- Short Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Short Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="short-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/short/short1.webp" alt="Short full set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/short/short2.webp" alt="Short full set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/short/short3.webp" alt="Short full set">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'short-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'short-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="short-dots"></div>
+            <button class="book-btn" onclick="openBookingModal('Short Full Set')">Book This Service</button>
+        </div>
+
+        <!-- Medium Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Medium Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="medium-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/medium/medium1.webp" alt="Medium Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/medium/medium2.webp" alt="Medium Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/medium/medium3.webp" alt="Medium Full Set">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'medium-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'medium-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="medium-dots"></div>
+            <button class="book-btn" onclick="openBookingModal('Medium Full Set')">Book This Service</button>
+        </div>
+
+        <!-- Long Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Long Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="long-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        <img src="images/long/long1.webp" alt="Long Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/long/long2.webp" alt="Long Full Set">
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        <img src="images/long/long3.webp" alt="Long Full Set">
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'long-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'long-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="long-dots"></div>
+            <button class="book-btn" onclick="openBookingModal('Long Full Set')">Book This Service</button>
+        </div>
+
+        <!-- Extra Long Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Extra Long Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="extralong-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        Image Placeholder 1
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 2
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 3
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'extralong-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'extralong-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="extralong-dots"></div>
+            <button class="book-btn" onclick="openBookingModal('Extra Long Full Set')">Book This Service</button>
+        </div>
+
+        <!-- Extendo Full Set Section -->
+        <div class="service-section">
+            <div class="service-header">
+                <h2>Extendo Full Set</h2>
+            </div>
+            <div class="slideshow-container" id="extendo-slideshow">
+                <div class="slide active">
+                    <div class="slide-image">
+                        Image Placeholder 1
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 2
+                    </div>
+                </div>
+                <div class="slide">
+                    <div class="slide-image">
+                        Image Placeholder 3
+                    </div>
+                </div>
+                <a class="prev" onclick="changeSlide(-1, 'extendo-slideshow')">&#10094;</a>
+                <a class="next" onclick="changeSlide(1, 'extendo-slideshow')">&#10095;</a>
+            </div>
+            <div class="dots-container" id="extendo-dots"></div>
+            <button class="book-btn" onclick="openBookingModal('Extendo Full Set')">Book This Service</button>
         </div>
 
         <div class="info-section">
@@ -389,167 +900,121 @@
                 <li>Soak offs are provided on <strong>my work only</strong></li>
             </ul>
         </div>
+    </div>
 
-        <!-- Freestyle Section -->
-        <div class="service-section">
-            <div class="service-header">
-                <h2>Freestyle</h2>
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Book Your Appointment</h2>
+                <span class="close" onclick="closeBookingModal()">&times;</span>
             </div>
-            <div class="slideshow-container" id="freestyle-slideshow">
-                <div class="slide active">
-                    <div class="slide-image">
-                        <img src="images/freestyle/Freestyle1.webp" alt="Freestyle 1">
+            <div class="modal-body">
+                <!-- IMPORTANT: Replace YOUR_FORMSPREE_ID with your actual Formspree form ID -->
+                <!-- Get your free form ID at: https://formspree.io -->
+                <form id="bookingForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName">
+                        </div>
                     </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/freestyle/Freestyle2.webp" alt="Freestyle 1">
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" placeholder="539-777-0059" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="_replyto">
+                        </div>
                     </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/freestyle/Freestyle3.webp" alt="Freestyle 1">
+
+                    <div class="form-group">
+                        <label for="service">Select Service *</label>
+                        <select id="service" name="service" required>
+                            <option value="">Choose a service...</option>
+                            <option value="Freestyle">Freestyle</option>
+                            <option value="Short Full Set">Short Full Set</option>
+                            <option value="Medium Full Set">Medium Full Set</option>
+                            <option value="Long Full Set">Long Full Set</option>
+                            <option value="Extra Long Full Set">Extra Long Full Set</option>
+                            <option value="Extendo Full Set">Extendo Full Set</option>
+                            <option value="Fill">Fill (specify in notes)</option>
+                        </select>
                     </div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1, 'freestyle-slideshow')">&#10094;</a>
-                <a class="next" onclick="changeSlide(1, 'freestyle-slideshow')">&#10095;</a>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Preferred Date *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Preferred Time *</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="notes">Additional Notes / Design Ideas</label>
+                        <textarea id="notes" name="notes" placeholder="Describe your nail design ideas, color preferences, or any special requests..."></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="file">Add a Sample Picture (Optional)</label>
+                        <div class="file-upload">
+                            <label for="file" class="file-label">
+                                <i class="fas fa-upload"></i> Choose Image
+                            </label>
+                            <input id="file" type="file" name="photo" accept="image/png, image/jpeg, image/jpg, image/webp">
+                            <span id="file-name" class="file-name">No file chosen</span>
+                            
+                            <div class="file-actions hidden" id="file-actions">
+                                <button type="button" id="change-btn" class="file-action">
+                                    <i class="fas fa-sync-alt"></i> Change
+                                </button>
+                                <button type="button" id="remove-btn" class="file-action remove">
+                                    <i class="fas fa-times"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden field for form name -->
+                    <input type="hidden" name="_subject" value="New Nail Appointment Booking">
+
+                    <div class="deposit-reminder">
+                        <h4><i class="fas fa-exclamation-circle"></i> Important Deposit Information</h4>
+                        <p><strong>$20 non-refundable deposit required</strong></p>
+                        <p>• Send via CashApp: <strong>$ivvettg</strong>, Apple Pay, or Cash</p>
+                        <p>• Include your NAME or an emoji (NOT "nails" or "appt")</p>
+                        <p>• Select "paying a friend/trusted person"</p>
+                        <p>• Your deposit will be applied to your total</p>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">Submit Booking Request</button>
+
+                    <div id="successMessage" class="success-message">
+                        <h4><i class="fas fa-check-circle"></i> Booking Request Received!</h4>
+                        <p>Thank you for your booking request. I'll receive your information and contact you shortly!</p>
+                        <p><strong>Next Steps:</strong></p>
+                        <p>1. Send your $20 deposit to CashApp: $ivvettg</p>
+                        <p>2. Wait for my text confirmation at 539-777-0059</p>
+                        <p>3. Include screenshot of deposit when I contact you</p>
+                    </div>
+
+                    <div id="errorMessage" class="error-message">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Submission Error</h4>
+                        <p>There was a problem submitting your booking. Please text me directly at 539-777-0059 or try again later.</p>
+                    </div>
+                </form>
             </div>
-            <div class="dots-container" id="freestyle-dots"></div>
         </div>
-
-        <!-- Short Full Set Section -->
-        <div class="service-section">
-            <div class="service-header">
-                <h2>Short Full Set</h2>
-            </div>
-            <div class="slideshow-container" id="short-slideshow">
-                <div class="slide active">
-                    <div class="slide-image">
-                        <img src="images/short/short1.webp" alt="Short full set">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/short/short2.webp" alt="Short full set">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/short/short3.webp" alt="Short full set">
-                    </div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1, 'short-slideshow')">&#10094;</a>
-                <a class="next" onclick="changeSlide(1, 'short-slideshow')">&#10095;</a>
-            </div>
-            <div class="dots-container" id="short-dots"></div>
-        </div>
-
-        <!-- Medium Full Set Section -->
-        <div class="service-section">
-            <div class="service-header">
-                <h2>Medium Full Set</h2>
-            </div>
-            <div class="slideshow-container" id="medium-slideshow">
-                <div class="slide active">
-                    <div class="slide-image">
-                        <img src="images/medium/medium1.webp" alt="Medium Full Set">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/medium/medium2.webp" alt="Medium Full Set">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/medium/medium3.webp" alt="Medium Full Set">
-                    </div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1, 'medium-slideshow')">&#10094;</a>
-                <a class="next" onclick="changeSlide(1, 'medium-slideshow')">&#10095;</a>
-            </div>
-            <div class="dots-container" id="medium-dots"></div>
-        </div>
-
-        <!-- Long Full Set Section -->
-        <div class="service-section">
-            <div class="service-header">
-                <h2>Long Full Set</h2>
-            </div>
-            <div class="slideshow-container" id="long-slideshow">
-                <div class="slide active">
-                    <div class="slide-image">
-                        <img src="images/long/long1.webp" alt="Long Full Set">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/long/long2.webp" alt="Long Full Set">
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        <img src="images/long/long3.webp" alt="Long Full Set">
-                    </div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1, 'long-slideshow')">&#10094;</a>
-                <a class="next" onclick="changeSlide(1, 'long-slideshow')">&#10095;</a>
-            </div>
-            <div class="dots-container" id="long-dots"></div>
-        </div>
-
-        <!-- Extra Long Full Set Section -->
-        <div class="service-section">
-            <div class="service-header">
-                <h2>Extra Long Full Set</h2>
-            </div>
-            <div class="slideshow-container" id="extralong-slideshow">
-                <div class="slide active">
-                    <div class="slide-image">
-                        Image Placeholder 1
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        Image Placeholder 2
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        Image Placeholder 3
-                    </div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1, 'extralong-slideshow')">&#10094;</a>
-                <a class="next" onclick="changeSlide(1, 'extralong-slideshow')">&#10095;</a>
-            </div>
-            <div class="dots-container" id="extralong-dots"></div>
-        </div>
-
-        <!-- Extendo Full Set Section -->
-        <div class="service-section">
-            <div class="service-header">
-                <h2>Extendo Full Set</h2>
-            </div>
-            <div class="slideshow-container" id="extendo-slideshow">
-                <div class="slide active">
-                    <div class="slide-image">
-                        Image Placeholder 1
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        Image Placeholder 2
-                    </div>
-                </div>
-                <div class="slide">
-                    <div class="slide-image">
-                        Image Placeholder 3
-                    </div>
-                </div>
-                <a class="prev" onclick="changeSlide(-1, 'extendo-slideshow')">&#10094;</a>
-                <a class="next" onclick="changeSlide(1, 'extendo-slideshow')">&#10095;</a>
-            </div>
-            <div class="dots-container" id="extendo-dots"></div>
     </div>
 
     <footer>
@@ -658,6 +1123,132 @@
                 startTimer(slideshowId);
             });
         }
+
+        // Modal Functions
+        function openBookingModal(serviceName) {
+            const modal = document.getElementById('bookingModal');
+            const serviceSelect = document.getElementById('service');
+            
+            // Pre-select the service
+            if (serviceName) {
+                serviceSelect.value = serviceName;
+            }
+            
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('bookingModal');
+            modal.classList.remove('show');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+            
+            // Reset messages
+            document.getElementById('successMessage').classList.remove('show');
+            document.getElementById('errorMessage').classList.remove('show');
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const modal = document.getElementById('bookingModal');
+            if (event.target == modal) {
+                closeBookingModal();
+            }
+        }
+
+        // File Upload Handling
+        const fileInput = document.getElementById("file");
+        const fileName = document.getElementById("file-name");
+        const fileActions = document.getElementById("file-actions");
+        const changeBtn = document.getElementById("change-btn");
+        const removeBtn = document.getElementById("remove-btn");
+
+        fileInput.addEventListener("change", function() {
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                fileName.textContent = file.name;
+                fileActions.classList.remove("hidden");
+            }
+        });
+
+        // Change button - reopens file picker
+        changeBtn.addEventListener("click", function() {
+            fileInput.click();
+        });
+
+        // Remove button - clears the file
+        removeBtn.addEventListener("click", function() {
+            fileInput.value = "";
+            fileName.textContent = "No file chosen";
+            fileActions.classList.add("hidden");
+        });
+
+        // Booking Form Handling with Formspree
+        const form = document.getElementById('bookingForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            // Get form data
+            const formData = new FormData(form);
+            
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    successMessage.classList.add('show');
+                    errorMessage.classList.remove('show');
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Reset form
+                    form.reset();
+                    fileName.textContent = "No file chosen";
+                    fileActions.classList.add("hidden");
+                    
+                    // Re-enable button
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Submit Booking Request';
+                    
+                    // Close modal after 5 seconds
+                    setTimeout(() => {
+                        closeBookingModal();
+                    }, 5000);
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Show error message
+                errorMessage.classList.add('show');
+                successMessage.classList.remove('show');
+                
+                // Scroll to error message
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // Re-enable button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Booking Request';
+            }
+        });
+
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('date').setAttribute('min', today);
 
         // Start when page loads
         window.onload = initializeSlideshows;
