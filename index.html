@@ -90,7 +90,7 @@
             max-width: 1000px;
             box-shadow: 0 8px 32px rgba(0,0,0,0.3);
             animation: slideDown 0.3s;
-            max-height: 90vh;
+            max-height: 95vh; /* Increased from 90vh */
             overflow: hidden;
         }
 
@@ -138,14 +138,15 @@
 
         .modal-body {
             padding: 0;
-            max-height: calc(90vh - 80px);
+            max-height: calc(95vh - 80px); /* Increased from 90vh */
             overflow-y: auto;
         }
 
         /* Calendly Container */
-        .calendly-inline-widget {
+        #calendly-container {
             min-width: 320px;
-            height: 700px;
+            height: 80vh; /* Uses 80% of viewport height */
+            min-height: 700px;
         }
 
         .book-btn {
@@ -432,15 +433,17 @@
 
             .modal-content {
                 width: 95%;
-                margin: 5% auto;
+                margin: 2% auto;
+                max-height: 98vh; /* Almost full screen on mobile */
             }
 
             .modal-header h2 {
                 font-size: 1.5rem;
             }
 
-            .calendly-inline-widget {
-                height: 600px;
+            #calendly-container {
+                height: 85vh; /* Taller on mobile */
+                min-height: 500px;
             }
         }
     </style>
@@ -493,7 +496,7 @@
                 <a class="next" onclick="changeSlide(1, 'freestyle-slideshow')">&#10095;</a>
             </div>
             <div class="dots-container" id="freestyle-dots"></div>
-            <button class="book-btn" onclick="openBookingModal('Freestyle')">Book This Service</button>
+            <button class="book-btn" onclick="openBookingModal('Freestyle', 'https://calendly.com/haely728/freestyle')">Book This Service</button>
         </div>
 
         <!-- Short Full Set Section -->
@@ -521,7 +524,8 @@
                 <a class="next" onclick="changeSlide(1, 'short-slideshow')">&#10095;</a>
             </div>
             <div class="dots-container" id="short-dots"></div>
-            <button class="book-btn" onclick="openBookingModal('Short Full Set')">Book This Service</button>
+            <!-- UPDATE THIS URL with your actual Short Full Set Calendly link -->
+            <button class="book-btn" onclick="openBookingModal('Short Full Set', 'https://calendly.com/haely728/freestyle-clone')">Book This Service</button>
         </div>
 
         <!-- Medium Full Set Section -->
@@ -549,7 +553,8 @@
                 <a class="next" onclick="changeSlide(1, 'medium-slideshow')">&#10095;</a>
             </div>
             <div class="dots-container" id="medium-dots"></div>
-            <button class="book-btn" onclick="openBookingModal('Medium Full Set')">Book This Service</button>
+            <!-- UPDATE THIS URL with your actual Medium Full Set Calendly link -->
+            <button class="book-btn" onclick="openBookingModal('Medium Full Set', 'https://calendly.com/haely728/long-full-set-clone')">Book This Service</button>
         </div>
 
         <!-- Long Full Set Section -->
@@ -577,7 +582,8 @@
                 <a class="next" onclick="changeSlide(1, 'long-slideshow')">&#10095;</a>
             </div>
             <div class="dots-container" id="long-dots"></div>
-            <button class="book-btn" onclick="openBookingModal('Long Full Set')">Book This Service</button>
+            <!-- UPDATE THIS URL with your actual Long Full Set Calendly link -->
+            <button class="book-btn" onclick="openBookingModal('Long Full Set', 'https://calendly.com/haely728/short-full-set-clone')">Book This Service</button>
         </div>
 
         <!-- Extra Long Full Set Section -->
@@ -605,10 +611,11 @@
                 <a class="next" onclick="changeSlide(1, 'extralong-slideshow')">&#10095;</a>
             </div>
             <div class="dots-container" id="extralong-dots"></div>
-            <button class="book-btn" onclick="openBookingModal('Extra Long Full Set')">Book This Service</button>
+            <!-- UPDATE THIS URL with your actual Extra Long Full Set Calendly link -->
+            <button class="book-btn" onclick="openBookingModal('Extra Long Full Set', 'https://calendly.com/haely728/long-full-set-clone-1')">Book This Service</button>
         </div>
 
-        <!-- Extendo Full Set Section -->
+        <!-- Extendo Full Set Section - COMMENTED OUT -->
          <!--
         <div class="service-section">
             <div class="service-header">
@@ -634,9 +641,9 @@
                 <a class="next" onclick="changeSlide(1, 'extendo-slideshow')">&#10095;</a>
             </div>
             <div class="dots-container" id="extendo-dots"></div>
-            <button class="book-btn" onclick="openBookingModal('Extendo Full Set')">Book This Service</button>
+            <button class="book-btn" onclick="openBookingModal('Extendo Full Set', 'https://calendly.com/haely728/extendo-full-set')">Book This Service</button>
         </div>
-    -->
+        -->
 
         <div class="info-section">
             <h2>Payment Information</h2>
@@ -703,20 +710,16 @@
         </div>
     </div>
 
-    <!-- Booking Modal with Calendly -->
+    <!-- Booking Modal with Dynamic Calendly -->
     <div id="bookingModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Book Your Appointment</h2>
+                <h2 id="modalTitle">Book Your Appointment</h2>
                 <span class="close" onclick="closeBookingModal()">&times;</span>
             </div>
             <div class="modal-body">
-                <!-- REPLACE YOUR_CALENDLY_USERNAME with your actual Calendly username -->
-                <!-- Example: https://calendly.com/xxoacrilycss -->
-                <div class="calendly-inline-widget" 
-                     data-url="https://calendly.com/haely728?hide_gdpr_banner=1&primary_color=000000"
-                     style="min-width:320px;height:700px;">
-                </div>
+                <!-- Calendly will be dynamically loaded here -->
+                <div id="calendly-container"></div>
             </div>
         </div>
     </div>
@@ -736,14 +739,15 @@
             'short-slideshow': { currentSlide: 0, timer: null },
             'medium-slideshow': { currentSlide: 0, timer: null },
             'long-slideshow': { currentSlide: 0, timer: null },
-            'extralong-slideshow': { currentSlide: 0, timer: null },
-            'extendo-slideshow': { currentSlide: 0, timer: null }
+            'extralong-slideshow': { currentSlide: 0, timer: null }
         };
 
         // Initialize dots for each slideshow
         function initializeDots() {
             Object.keys(slideshows).forEach(slideshowId => {
                 const container = document.getElementById(slideshowId);
+                if (!container) return; // Skip if container doesn't exist
+                
                 const slides = container.getElementsByClassName('slide');
                 const dotsId = slideshowId.replace('-slideshow', '-dots');
                 const dotsContainer = document.getElementById(dotsId);
@@ -762,6 +766,8 @@
         // Show specific slide
         function showSlide(n, slideshowId) {
             const container = document.getElementById(slideshowId);
+            if (!container) return;
+            
             const slides = container.getElementsByClassName('slide');
             const dotsId = slideshowId.replace('-slideshow', '-dots');
             const dots = document.getElementById(dotsId).getElementsByClassName('dot');
@@ -798,6 +804,8 @@
         // Auto advance slideshow
         function autoSlide(slideshowId) {
             const container = document.getElementById(slideshowId);
+            if (!container) return;
+            
             const slides = container.getElementsByClassName('slide');
             const nextIndex = (slideshows[slideshowId].currentSlide + 1) % slides.length;
             showSlide(nextIndex, slideshowId);
@@ -812,6 +820,8 @@
         // Start auto-advance timer
         function startTimer(slideshowId) {
             const container = document.getElementById(slideshowId);
+            if (!container) return;
+            
             const slides = container.getElementsByClassName('slide');
             const slideCount = slides.length;
             
@@ -831,9 +841,27 @@
             });
         }
 
-        // Modal Functions
-        function openBookingModal(serviceName) {
+        // Modal Functions with Dynamic Calendly Loading
+        function openBookingModal(serviceName, calendlyUrl) {
             const modal = document.getElementById('bookingModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const calendlyContainer = document.getElementById('calendly-container');
+            
+            // Update modal title
+            modalTitle.textContent = `Book ${serviceName}`;
+            
+            // Clear previous Calendly widget
+            calendlyContainer.innerHTML = '';
+            
+            // Initialize Calendly widget with specific URL
+            Calendly.initInlineWidget({
+                url: calendlyUrl + '?hide_gdpr_banner=1&primary_color=000000',
+                parentElement: calendlyContainer,
+                prefill: {},
+                utm: {}
+            });
+            
+            // Show modal
             modal.classList.add('show');
             document.body.style.overflow = 'hidden'; // Prevent background scrolling
         }
@@ -842,6 +870,9 @@
             const modal = document.getElementById('bookingModal');
             modal.classList.remove('show');
             document.body.style.overflow = 'auto'; // Re-enable scrolling
+            
+            // Clear Calendly widget to prevent conflicts
+            document.getElementById('calendly-container').innerHTML = '';
         }
 
         // Close modal when clicking outside of it
